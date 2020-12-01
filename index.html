@@ -6,8 +6,8 @@
   <meta name="viewport"
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>PWA - Todo List</title>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+  <title>UFO - Useful Financial Organizer</title>
+  <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.green-pink.min.css">
   <link rel="stylesheet" href="assets/css/style.css">
@@ -24,14 +24,55 @@
         </div>
       </header>
       <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">UFO - Useful Financial Organizer</span>
+        <span class="mdl-layout-title">UFO</span>
         <nav class="mdl-navigation">
           <a class="mdl-navigation__link" href="/">About</a>
         </nav>
       </div>
       <main class="mdl-layout__content mat-typography" style="text-align: center">
         <form>
-          <input type="text" name="item" placeholder="Type something" autofocus="" required="" autocomplete="off">
+          <div class="mdl-grid">
+            <div class="mdl-cell">
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" pattern="\d+(,\d{2})?" id="amount" required>
+                <label class="mdl-textfield__label" for="amount">amount</label>
+                <span class="mdl-textfield__error">amount is not valid.</span>
+              </div>
+            </div>
+            <div class="mdl-cell">
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="date" id="date" required>
+                <!--<label class="mdl-textfield__label" for="date">date</label>-->
+              </div>
+            </div> 
+          </div>
+          <div class="mdl-grid">   
+            <div class="mdl-cell">                 
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="description" required>
+                <label class="mdl-textfield__label" for="description">description</label>
+              </div>
+            </div>
+            <div class="mdl-cell mdl-cell--2-col">            
+              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="inflow">
+                <input type="radio" id="inflow" class="mdl-radio__button" name="type" value="inflow" checked>
+                <span class="mdl-radio__label">inflow</span>
+              </label>
+            </div>
+            <div class="mdl-cell mdl-cell--2-col">            
+              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="outflow">
+                <input type="radio" id="outflow" class="mdl-radio__button" name="type" value="outflow">
+                <span class="mdl-radio__label">outflow</span>
+              </label>
+            </div>
+          </div>
+          <div class="mdl-grid"> 
+            <div class="mdl-cell mdl-cell--12-col">     
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                Save
+              </button>
+            </div>
+          </div>                             
         </form>
         <ul>
           <li data-item-id="1"><span>Learning PWA</span><button>x</button></li>
