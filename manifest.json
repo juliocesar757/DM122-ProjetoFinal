@@ -1,7 +1,7 @@
 {
-  "name": "PWA - Todo List",
-  "short_name": "PWA - Todo",
-  "theme_color": "#3f51b5",
+  "name": "UFO - Useful Financial Organizer",
+  "short_name": "UFO",
+  "theme_color": "#4caf50",
   "background_color": "#fff",
   "display": "standalone",
   "scope": ".",
