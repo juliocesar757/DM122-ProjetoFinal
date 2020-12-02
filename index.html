@@ -32,42 +32,35 @@
       <main class="mdl-layout__content mat-typography" style="text-align: center">
         <form>
           <div class="mdl-grid">
-            <div class="mdl-cell">
+            <div class="mdl-cell mdl-cell--12-col">
               <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" pattern="\d+(,\d{2})?" id="amount" required>
+                <input class="mdl-textfield__input" type='text' pattern="[0-9]+([\.][0-9]+)?" id="amount" required>
                 <label class="mdl-textfield__label" for="amount">amount</label>
                 <span class="mdl-textfield__error">amount is not valid.</span>
               </div>
             </div>
-            <div class="mdl-cell">
-              <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="date" id="timestamp" required>
-                <!--<label class="mdl-textfield__label" for="timestamp">date</label>-->
-              </div>
-            </div> 
-          </div>
-          <div class="mdl-grid">   
-            <div class="mdl-cell">                 
+            <div class="mdl-cell mdl-cell--12-col">
               <div class="mdl-textfield mdl-js-textfield">
                 <input class="mdl-textfield__input" type="text" id="description" required>
                 <label class="mdl-textfield__label" for="description">description</label>
               </div>
             </div>
-            <div class="mdl-cell mdl-cell--2-col">            
-              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="inflow">
+          </div>
+          <div class="mdl-grid">             
+            <div class="mdl-cell mdl-cell--12-col">
+              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect type" for="inflow">
                 <input type="radio" id="inflow" class="mdl-radio__button" name="type" value="inflow" checked>
                 <span class="mdl-radio__label">inflow</span>
               </label>
-            </div>
-            <div class="mdl-cell mdl-cell--2-col">            
-              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="outflow">
+         
+              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect type" for="outflow">
                 <input type="radio" id="outflow" class="mdl-radio__button" name="type" value="outflow">
                 <span class="mdl-radio__label">outflow</span>
               </label>
             </div>
           </div>
-          <div class="mdl-grid"> 
-            <div class="mdl-cell mdl-cell--12-col">     
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col">
               <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                 Save
               </button>

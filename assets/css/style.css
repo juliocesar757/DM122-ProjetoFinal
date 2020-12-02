@@ -1,18 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
-form {
-  padding: 20px;
-  border-bottom: solid 1px #ddd;
-}
-
-input {
-  width: 99%;
-  padding: 0.5em;
-  font-size: 1.4em;
-}
-
 ul {
   margin: 0;
   padding: 0;
@@ -40,4 +25,8 @@ li > button {
 
 .done > span {
   text-decoration: line-through;
+}
+
+.type {
+  padding: 0 10px;
 }
