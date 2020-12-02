@@ -13,17 +13,28 @@ export default class HtmlService {
         const form = document.querySelector('form');
         form.addEventListener('submit', event => {
             event.preventDefault();
-            this.addTransaction(form.amount.value, form.description.value, form.type.value);
+            this.addTransaction(form, '#latest-transactions');
             form.reset();
             form.amount.focus();
         })
     }
 
-    async addTransaction(amount, description, type) {
-        const transaction = { amount, description, type, timestamp: Date.now() };
-        const transactionId = await this.ufoService.save(transaction);
-        transaction.id = transactionId;
-        this.addToHtmlList(transaction);
+    refreshList(listId) {
+        document.querySelector(listId).innerHTML = '';
+        this.listTransactions();
+    }
+
+    async addTransaction(form, listId) {
+        const transaction = {
+            amount: form.amount.value,
+            description: form.description.value,
+            type: form.type.value,
+            timestamp: Date.now()
+        };
+
+        await this.ufoService.save(transaction);
+
+        this.refreshList(listId);
     }
 
     async listTransactions () {
@@ -31,14 +42,9 @@ export default class HtmlService {
         transactions.forEach(transaction => this.addToHtmlList(transaction));
     }
 
-    async deleteTransaction(li, transactionId) {
+    async deleteTransaction(tr, transactionId) {
         await this.ufoService.delete(transactionId);
-        li.remove();
-    }
-
-    async saveTransaction(transactionId) {
-        const transaction = await this.ufoService.get(transactionId);
-        await this.ufoService.save(transaction);
+        tr.remove();
     }
 
     formatAmount(amount, locale, currency) {
