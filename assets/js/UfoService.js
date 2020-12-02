@@ -31,6 +31,21 @@ export default class UfoService {
         return db.transactions.toArray();
     }
 
+    getAllByDateDesc() {
+        return db.transactions
+        .orderBy('timestamp')
+        .reverse()
+        .toArray();
+    }
+
+    getLastest(limit) {
+        return db.transactions
+        .orderBy('timestamp')
+        .reverse()
+        .limit(limit)
+        .toArray();
+    }  
+
     get(id) {
         return db.transactions.get(id);
     }
