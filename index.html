@@ -67,15 +67,23 @@
             </div>
           </div>                             
         </form>
-        <ul>
-          <li data-item-id="1"><span>Learning PWA</span><button>x</button></li>
-          <li data-item-id="2" class="done"><span>Learn JavaScript</span><button>x</button></li>
-          <li data-item-id="3" class="done"><span>Learn TypeScript</span><button>x</button></li>
-        </ul>
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Date</th>
+              <th class="mdl-data-table__cell--non-numeric">Description</th>
+              <th>Amount</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="latest-transactions">
+
+          </tbody>         
+        </table>
       </main>
     </div>
   </div>
   <script defer src="assets/js/material.min.js"></script>
-  <script src="assets/js/app.js"></script>
+  <script type="module" src="assets/js/app.js"></script>
 </body>
 </html>
