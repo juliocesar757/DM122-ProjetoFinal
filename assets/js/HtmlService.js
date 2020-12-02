@@ -80,7 +80,7 @@ export default class HtmlService {
         }
 
         const button = document.createElement('button');
-        button.textContent = 'x';
+        button.innerHTML = '<span class="material-icons">delete</span>';
         button.addEventListener('click', (event) => {
             event.stopPropagation();
             this.deleteTransaction(tr, transaction.id);

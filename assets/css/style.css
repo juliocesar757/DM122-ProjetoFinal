@@ -1,36 +1,32 @@
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-li {
-  padding: 20px;
-  border-bottom: solid 1px #ddd;
-  cursor: pointer;
-  display: flex;
-}
-
-li > span {
-  flex: 1;
-  text-align: left;
-}
-
-li > button {
+button {
   background: none;
-  border: 0;
-  outline: 0;
-  cursor: pointer;
+  border: none;
+  padding: 0;
 }
-
-.done > span {
-  text-decoration: line-through;
-}
-
 .type {
   padding: 0 10px;
 }
 
 .outflow {
   color: #D50000;
+}
+
+.mdl-data-table {
+  white-space: initial;
+  width: 100%;
+}
+
+.mdl-data-table td {
+  padding: 6px 9px;
+}
+.mdl-data-table td:last-of-type, .mdl-data-table th:last-of-type {
+  padding-right: 9px;
+}
+
+.mdl-data-table td:first-of-type, .mdl-data-table th:first-of-type {
+  padding-left: 9px;
+}
+
+.mdl-data-table th {
+  padding: 0 9px 6px 9px;
 }
