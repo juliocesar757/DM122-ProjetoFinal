@@ -13,7 +13,7 @@ export default class HtmlService {
         const form = document.querySelector('form');
         form.addEventListener('submit', event => {
             event.preventDefault();
-            this.addTransaction(form, '#latest-transactions');
+            this.addTransaction(form);
             form.reset();
             form.amount.focus();
         })
@@ -90,12 +90,14 @@ export default class HtmlService {
 
         if(status == 'negative') {
             element.classList.add("outflow");
+        } else {
+            element.classList.remove("outflow");
         }
 
         element.textContent = balance;
     }
 
-    async addTransaction(form, listId) {
+    async addTransaction(form) {
         const transaction = {
             amount: form.amount.value,
             description: form.description.value,
