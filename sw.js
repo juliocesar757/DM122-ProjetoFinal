@@ -11,13 +11,16 @@ const assetsToCache = [
   './assets/icons/icon-144x144.png',
   './assets/icons/icon-192x192.png',
   './assets/icons/icon-310x310.png',
+  './assets/images/ufo-logo.png',
   './assets/js/material.min.js',
-  './assets/js/UfoService.js',   
+  './assets/js/UfoService.js',
+  './assets/js/HtmlService.js',   
   './assets/css/style.css',
   './assets/js/app.js',
   './manifest.json',
   './favicon.ico',
   './index.html',
+  './about.html',
   './'
 ];
 

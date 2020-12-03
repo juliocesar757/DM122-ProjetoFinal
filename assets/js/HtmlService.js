@@ -1,11 +1,12 @@
-const latestLimit = 10;
 const locale = 'pt-BR';
 const currency = 'BRL';
+let days = 30;
 
 export default class HtmlService {
     constructor(ufoService) {
         this.ufoService = ufoService;
         this.bindFormEvent();
+        this.bindSliderEvent();
         this.refreshUI();
     }
 
@@ -19,61 +20,26 @@ export default class HtmlService {
         })
     }
 
+    bindSliderEvent() {
+        const slider = document.querySelector('#days');
+        
+        slider.addEventListener('change', (event) => {
+            const daysValue = slider.value;
+            document.querySelector('#days-lbl').textContent = daysValue;
+            days = daysValue;
+            this.refreshUI();
+        });       
+    }
+
     refreshUI() {
-        this.updateList('#latest-transactions');
+        this.updateList();
         this.updateBalance();
-        this.updateLastMonthStats();
+        this.updateGraphs(days);
     }
 
-    updateList(listId) {
-        document.querySelector(listId).innerHTML = '';
-        this.listTransactions();
-    }
-
-    async getTotalByType(value) {
-        const transactions = await this.ufoService.getTotalByType(value);
-
-        let total = 0;
-
-        transactions.map( (transaction) => {
-            total += parseFloat(transaction.amount);
-        });
-        
-        return total;
-    }
-
-    async getTotalLastMonthByType(timestamp) {
-        const transactions = await this.ufoService.getTotalLastMonth(timestamp);
-
-        let totalInflow = 0;
-        let totalOutflow = 0;
-
-        transactions.map( (transaction) => {
-            if(transaction.type == 'inflow') {
-                totalInflow += parseFloat(transaction.amount);
-            } else {
-                totalOutflow += parseFloat(transaction.amount);
-            }
-        });
-        
-        return [totalInflow, totalOutflow];
-    } 
-    
-    async updateLastMonthStats() {
-        const lastMonthTimestamp = Date.now() - (30 * 24 * 60 * 60 * 1000); // timestamp 30 dias atrás
-
-        const [totalInflow, totalOutflow] = await this.getTotalLastMonthByType(lastMonthTimestamp);
-
-        const total = parseFloat(totalInflow) + parseFloat(totalOutflow);
-
-        const percentInflow = Math.round(100 * parseFloat(totalInflow) / total);
-        const percentOutflow = Math.round(100 * parseFloat(totalOutflow) / total);
-
-        document.querySelector('#inflow-bar').textContent = this.formatAmount(totalInflow, locale, currency);
-        document.querySelector('#inflow-bar').setAttribute('style', 'width:' + percentInflow + '%');
-
-        document.querySelector('#outflow-bar').textContent = this.formatAmount(totalOutflow, locale, currency);
-        document.querySelector('#outflow-bar').setAttribute('style', 'width:' + percentOutflow + '%');
+    updateList() {
+        document.querySelector('#latest-transactions').innerHTML = '';
+        this.listTransactions(days);
     }
 
     async updateBalance() {
@@ -96,7 +62,53 @@ export default class HtmlService {
 
         element.textContent = balance;
     }
+    
+    async updateGraphs(days) {
+        const lastMonthTimestamp = Date.now() - (days * 24 * 60 * 60 * 1000);
 
+        const [totalInflow, totalOutflow] = await this.getTotalLastDaysByType(lastMonthTimestamp);
+
+        const total = parseFloat(totalInflow) + parseFloat(totalOutflow);
+
+        const percentInflow = Math.round(100 * parseFloat(totalInflow) / total);
+        const percentOutflow = Math.round(100 * parseFloat(totalOutflow) / total);
+
+        document.querySelector('#inflow-bar').textContent = this.formatAmount(totalInflow, locale, currency);
+        document.querySelector('#inflow-bar').setAttribute('style', 'width:' + percentInflow + '%');
+
+        document.querySelector('#outflow-bar').textContent = this.formatAmount(totalOutflow, locale, currency);
+        document.querySelector('#outflow-bar').setAttribute('style', 'width:' + percentOutflow + '%');
+    }    
+
+    async getTotalByType(value) {
+        const transactions = await this.ufoService.getTotalByType(value);
+
+        let total = 0;
+
+        transactions.map( (transaction) => {
+            total += parseFloat(transaction.amount);
+        });
+        
+        return total;
+    }
+
+    async getTotalLastDaysByType(timestamp) {
+        const transactions = await this.ufoService.getLastestDays(timestamp);
+
+        let totalInflow = 0;
+        let totalOutflow = 0;
+
+        transactions.map( (transaction) => {
+            if(transaction.type == 'inflow') {
+                totalInflow += parseFloat(transaction.amount);
+            } else {
+                totalOutflow += parseFloat(transaction.amount);
+            }
+        });
+        
+        return [totalInflow, totalOutflow];
+    } 
+    
     async addTransaction(form) {
         const transaction = {
             amount: form.amount.value,
@@ -110,8 +122,9 @@ export default class HtmlService {
         this.refreshUI();
     }
 
-    async listTransactions () {
-        const transactions = await this.ufoService.getLastest(latestLimit);
+    async listTransactions (days) {
+        const lastDaysTimestamp = Date.now() - (days * 24 * 60 * 60 * 1000);
+        const transactions = await this.ufoService.getLastestDays(lastDaysTimestamp);
         transactions.forEach(transaction => this.addToHtmlList(transaction));
     }
 

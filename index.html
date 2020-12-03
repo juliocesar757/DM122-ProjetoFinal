@@ -30,6 +30,13 @@
         </nav>
       </div>
       <main class="mdl-layout__content mat-typography" style="text-align: center">
+        <div class="box">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col balance-box">
+              Balance: <span id="balance"></span>
+            </div>
+          </div>
+        </div>        
         <form class="box">
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col">
@@ -62,17 +69,22 @@
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col">
               <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                Save
+                Add
               </button>
             </div>
           </div>                             
         </form>
-        <div class="box">
+        <div class="box"> 
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col balance-box">
-              Balance: <span id="balance"></span>
+              Data from the last <span id="days-lbl">30</span> days
             </div>
-          </div>
+          </div>                   
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col balance-box">
+              <input class="mdl-slider mdl-js-slider" type="range" id="days" min="0" max="100" value="30" step="1">
+            </div>
+          </div>          
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col">
             <div class="inflow-label">Inflow</div><div id="inflow-bar">Inflow</div>
@@ -83,26 +95,24 @@
               <div class="inflow-label">Outflow</div><div id="outflow-bar">Outflow</div>
             </div>                      
           </div>
-        </div>
-        <div class="box">
-        <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--12-col">
-            <table class="mdl-data-table mdl-js-data-table">
-              <thead>
-                <tr>
-                  <th class="mdl-data-table__cell--non-numeric">Date</th>
-                  <th class="mdl-data-table__cell--non-numeric">Description</th>
-                  <th>Amount</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody id="latest-transactions">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col">
+              <table class="mdl-data-table mdl-js-data-table">
+                <thead>
+                  <tr>
+                    <th class="mdl-data-table__cell--non-numeric">Date</th>
+                    <th class="mdl-data-table__cell--non-numeric">Description</th>
+                    <th>Amount</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="latest-transactions">
 
-              </tbody>         
-            </table>
+                </tbody>         
+              </table>
+            </div>
           </div>
         </div>
-      </div>
       </main>
     </div>
   </div>

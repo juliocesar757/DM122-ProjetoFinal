@@ -16,12 +16,17 @@ export default class UfoService {
 
         db.on('populate', async () => {
             await db.transactions.bulkPut([
-                { amount: 1000.00, description: "Salário", type: "inflow", timestamp: Date.now() - (1 * 24 * 60 * 60 * 1000) }, // adiciona um dia ao timestamp
-                { amount: 30.25, description: "Almoço fora", type: "outflow", timestamp: Date.now() - (2 * 24 * 60 * 60 * 1000)  }, // adiciona dois dias ao timestamp...
-                { amount: 40.56, description: "Barzinho", type: "outflow", timestamp: Date.now() - (3 * 24 * 60 * 60 * 1000) },
-                { amount: 50.85, description: "Cervejinha de sexta", type: "outflow", timestamp: Date.now() - (4 * 24 * 60 * 60 * 1000)  },
-                { amount: 100.00, description: "Achei na rua ;)", type: "inflow", timestamp: Date.now() - (5 * 24 * 60 * 60 * 1000) },
-                { amount: 500.00, description: "Compra Speaker Bluetooth", type: "outflow", timestamp: Date.now() - (6 * 24 * 60 * 60 * 1000) },
+                { amount: 1000.00, description: "Job", type: "inflow", timestamp: Date.now() - (90 * 24 * 60 * 60 * 1000) }, // subtrai 90 dia ao timestamp atual
+                { amount: 30.25, description: "Almoço fora", type: "outflow", timestamp: Date.now() - (80 * 24 * 60 * 60 * 1000)  }, // subtrai 80 dias ao timestamp...
+                { amount: 40.56, description: "Barzinho", type: "outflow", timestamp: Date.now() - (70 * 24 * 60 * 60 * 1000) },
+                { amount: 20.60, description: "Café da manhã", type: "outflow", timestamp: Date.now() - (60 * 24 * 60 * 60 * 1000) },
+                { amount: 100.00, description: "Job Freelancer", type: "inflow", timestamp: Date.now() - (50 * 24 * 60 * 60 * 1000) },
+                { amount: 50.85, description: "Cervejinha de sexta", type: "outflow", timestamp: Date.now() - (40 * 24 * 60 * 60 * 1000)  },
+                { amount: 150.00, description: "Job Freelancer", type: "inflow", timestamp: Date.now() - (30 * 24 * 60 * 60 * 1000) },
+                { amount: 500.00, description: "Compra Speaker Bluetooth", type: "outflow", timestamp: Date.now() - (20 * 24 * 60 * 60 * 1000) },
+                { amount: 600.00, description: "Compra do mês", type: "outflow", timestamp: Date.now() - (10 * 24 * 60 * 60 * 1000) },
+                { amount: 1000.00, description: "Job", type: "inflow", timestamp: Date.now() - (5 * 24 * 60 * 60 * 1000) },
+                { amount: 40.00, description: "Almoço", type: "outflow", timestamp: Date.now() - (1 * 24 * 60 * 60 * 1000) },
             ]);
         });
 
@@ -31,21 +36,6 @@ export default class UfoService {
     getAll() {
         return db.transactions.toArray();
     }
-
-    getAllByDateDesc() {
-        return db.transactions
-        .orderBy('timestamp')
-        .reverse()
-        .toArray();
-    }
-
-    getLastest(limit) {
-        return db.transactions
-        .orderBy('timestamp')
-        .reverse()
-        .limit(limit)
-        .toArray();
-    }  
 
     get(id) {
         return db.transactions.get(id);
@@ -65,11 +55,12 @@ export default class UfoService {
         .equals(value)
         .toArray();
     } 
-    
-    getTotalLastMonth(timestamp) {
+
+    getLastestDays(timestamp) {
         return db.transactions
         .where('timestamp')
-        .aboveOrEqual(timestamp)
+        .aboveOrEqual(timestamp)        
+        .reverse()
         .toArray();
     }    
 }
