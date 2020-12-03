@@ -11,16 +11,17 @@ export default class UfoService {
         db = new Dexie('ufoDB');
 
         db.version(1).stores ({
-            transactions: '++id, timestamp'
+            transactions: '++id, timestamp, type'
         });
 
         db.on('populate', async () => {
             await db.transactions.bulkPut([
-                { amount: 1000.00, description: "Salário", type: "inflow", timestamp: Date.now() + (1 * 60 * 60 * 1000) }, // adiciona uma hora ao timestamp
-                { amount: 30.25, description: "Almoço fora", type: "outflow", timestamp: Date.now() + (2 * 60 * 60 * 1000)  }, // adiciona duas hora ao timestamp...
-                { amount: 40.56, description: "Barzinho", type: "outflow", timestamp: Date.now() + (3 * 60 * 60 * 1000) },
-                { amount: 50.85, description: "Cervejinha de sexta", type: "outflow", timestamp: Date.now() + (4 * 60 * 60 * 1000)  },
-                { amount: 100.00, description: "Achei na rua ;)", type: "inflow", timestamp: Date.now() + (5 * 60 * 60 * 1000) },
+                { amount: 1000.00, description: "Salário", type: "inflow", timestamp: Date.now() - (1 * 24 * 60 * 60 * 1000) }, // adiciona um dia ao timestamp
+                { amount: 30.25, description: "Almoço fora", type: "outflow", timestamp: Date.now() - (2 * 24 * 60 * 60 * 1000)  }, // adiciona dois dias ao timestamp...
+                { amount: 40.56, description: "Barzinho", type: "outflow", timestamp: Date.now() - (3 * 24 * 60 * 60 * 1000) },
+                { amount: 50.85, description: "Cervejinha de sexta", type: "outflow", timestamp: Date.now() - (4 * 24 * 60 * 60 * 1000)  },
+                { amount: 100.00, description: "Achei na rua ;)", type: "inflow", timestamp: Date.now() - (5 * 24 * 60 * 60 * 1000) },
+                { amount: 500.00, description: "Compra Speaker Bluetooth", type: "outflow", timestamp: Date.now() - (6 * 24 * 60 * 60 * 1000) },
             ]);
         });
 
@@ -57,4 +58,18 @@ export default class UfoService {
     delete(id) {
         return db.transactions.delete(id);
     }
+
+    getTotalByType(value) {
+        return db.transactions
+        .where('type')
+        .equals(value)
+        .toArray();
+    } 
+    
+    getTotalLastMonth(timestamp) {
+        return db.transactions
+        .where('timestamp')
+        .aboveOrEqual(timestamp)
+        .toArray();
+    }    
 }

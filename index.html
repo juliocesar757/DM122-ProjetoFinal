@@ -30,7 +30,7 @@
         </nav>
       </div>
       <main class="mdl-layout__content mat-typography" style="text-align: center">
-        <form>
+        <form class="box">
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col">
               <div class="mdl-textfield mdl-js-textfield">
@@ -67,6 +67,23 @@
             </div>
           </div>                             
         </form>
+        <div class="box">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col balance-box">
+              Balance: <span id="balance"></span>
+            </div>
+          </div>
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col">
+            <div class="inflow-label">Inflow</div><div id="inflow-bar">Inflow</div>
+            </div>
+          </div>
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col">
+              <div class="inflow-label">Outflow</div><div id="outflow-bar">Outflow</div>
+            </div>                      
+          </div>
+        </div>
         <div class="mdl-grid">
           <div class="mdl-cell mdl-cell--12-col">
             <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">

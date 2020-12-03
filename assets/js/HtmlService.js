@@ -6,7 +6,7 @@ export default class HtmlService {
     constructor(ufoService) {
         this.ufoService = ufoService;
         this.bindFormEvent();
-        this.listTransactions();
+        this.refreshUI();
     }
 
     bindFormEvent() {
@@ -19,9 +19,80 @@ export default class HtmlService {
         })
     }
 
-    refreshList(listId) {
+    refreshUI() {
+        this.updateList('#latest-transactions');
+        this.updateBalance();
+        this.updateLastMonthStats();
+    }
+
+    updateList(listId) {
         document.querySelector(listId).innerHTML = '';
         this.listTransactions();
+    }
+
+    async getTotalByType(value) {
+        const transactions = await this.ufoService.getTotalByType(value);
+
+        let total = 0;
+
+        transactions.map( (transaction) => {
+            total += parseFloat(transaction.amount);
+        });
+        
+        return total;
+    }
+
+    async getTotalLastMonthByType(timestamp) {
+        const transactions = await this.ufoService.getTotalLastMonth(timestamp);
+
+        let totalInflow = 0;
+        let totalOutflow = 0;
+
+        transactions.map( (transaction) => {
+            if(transaction.type == 'inflow') {
+                totalInflow += parseFloat(transaction.amount);
+            } else {
+                totalOutflow += parseFloat(transaction.amount);
+            }
+        });
+        
+        return [totalInflow, totalOutflow];
+    } 
+    
+    async updateLastMonthStats() {
+        const lastMonthTimestamp = Date.now() - (30 * 24 * 60 * 60 * 1000); // timestamp 30 dias atrás
+
+        const [totalInflow, totalOutflow] = await this.getTotalLastMonthByType(lastMonthTimestamp);
+
+        const total = parseFloat(totalInflow) + parseFloat(totalOutflow);
+
+        const percentInflow = Math.round(100 * parseFloat(totalInflow) / total);
+        const percentOutflow = Math.round(100 * parseFloat(totalOutflow) / total);
+
+        document.querySelector('#inflow-bar').textContent = this.formatAmount(totalInflow, locale, currency);
+        document.querySelector('#inflow-bar').setAttribute('style', 'width:' + percentInflow + '%');
+
+        document.querySelector('#outflow-bar').textContent = this.formatAmount(totalOutflow, locale, currency);
+        document.querySelector('#outflow-bar').setAttribute('style', 'width:' + percentOutflow + '%');
+    }
+
+    async updateBalance() {
+        const inflow = await this.getTotalByType('inflow');
+        const outflow = await this.getTotalByType('outflow');
+
+        let balance = parseFloat(inflow) - parseFloat(outflow);
+
+        let status = (balance < 0) ? 'negative' : 'positive';
+
+        balance = this.formatAmount(balance, locale, currency);
+
+        const element = document.querySelector('#balance');
+
+        if(status == 'negative') {
+            element.classList.add("outflow");
+        }
+
+        element.textContent = balance;
     }
 
     async addTransaction(form, listId) {
@@ -34,7 +105,7 @@ export default class HtmlService {
 
         await this.ufoService.save(transaction);
 
-        this.refreshList(listId);
+        this.refreshUI();
     }
 
     async listTransactions () {
@@ -42,9 +113,9 @@ export default class HtmlService {
         transactions.forEach(transaction => this.addToHtmlList(transaction));
     }
 
-    async deleteTransaction(tr, transactionId) {
+    async deleteTransaction(transactionId) {
         await this.ufoService.delete(transactionId);
-        tr.remove();
+        this.refreshUI();
     }
 
     formatAmount(amount, locale, currency) {
@@ -80,7 +151,7 @@ export default class HtmlService {
 
         if(transaction.type == 'outflow') {
             tdAmount.classList.add("outflow");
-            tdAmount.textContent = '- ' + amount;
+            tdAmount.textContent = '-' + amount;
         } else {
             tdAmount.textContent = amount;
         }
@@ -89,7 +160,7 @@ export default class HtmlService {
         button.innerHTML = '<span class="material-icons">delete</span>';
         button.addEventListener('click', (event) => {
             event.stopPropagation();
-            this.deleteTransaction(tr, transaction.id);
+            this.deleteTransaction( transaction.id);
         });
 
         const tdDelete = document.createElement('td');        
