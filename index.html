@@ -33,7 +33,7 @@
         <div class="box">
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col balance-box">
-              Balance: <span id="balance"></span>
+              balance: <span id="balance"></span>
             </div>
           </div>
         </div>        
@@ -57,12 +57,12 @@
             <div class="mdl-cell mdl-cell--12-col">
               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect type" for="inflow">
                 <input type="radio" id="inflow" class="mdl-radio__button" name="type" value="inflow" checked>
-                <span class="mdl-radio__label">inflow</span>
+                <span class="mdl-radio__label">cash inflow</span>
               </label>
          
               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect type" for="outflow">
                 <input type="radio" id="outflow" class="mdl-radio__button" name="type" value="outflow">
-                <span class="mdl-radio__label">outflow</span>
+                <span class="mdl-radio__label">cash outflow</span>
               </label>
             </div>
           </div>
@@ -77,7 +77,7 @@
         <div class="box"> 
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col balance-box">
-              Data from the last <span id="days-lbl">30</span> days
+              <span id="days-lbl">30</span>-day cash flow
             </div>
           </div>                   
           <div class="mdl-grid">
@@ -87,12 +87,12 @@
           </div>          
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col">
-            <div class="inflow-label">Inflow</div><div id="inflow-bar">Inflow</div>
+            <div class="inflow-label">cash inflow</div><div id="inflow-bar">cash inflow</div>
             </div>
           </div>
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col">
-              <div class="inflow-label">Outflow</div><div id="outflow-bar">Outflow</div>
+              <div class="inflow-label">cash outflow</div><div id="outflow-bar">cash outflow</div>
             </div>                      
           </div>
           <div class="mdl-grid">
@@ -100,9 +100,9 @@
               <table class="mdl-data-table mdl-js-data-table">
                 <thead>
                   <tr>
-                    <th class="mdl-data-table__cell--non-numeric">Date</th>
-                    <th class="mdl-data-table__cell--non-numeric">Description</th>
-                    <th>Amount</th>
+                    <th class="mdl-data-table__cell--non-numeric">date</th>
+                    <th class="mdl-data-table__cell--non-numeric">description</th>
+                    <th>amount</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -116,7 +116,7 @@
       </main>
     </div>
   </div>
-  <script defer src="assets/js/material.min.js"></script>
-  <script type="module" src="assets/js/app.js"></script>
+  <script defer src="./assets/js/material.min.js"></script>
+  <script type="module" src="./assets/js/app.js"></script>
 </body>
 </html>

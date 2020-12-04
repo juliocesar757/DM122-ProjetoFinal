@@ -59,3 +59,11 @@ button {
 .mdl-data-table {
   border: none;
 }
+
+.mdl-grid {
+  padding: 0;
+}
+
+.about-title {
+  font-size: 1.75em;
+}

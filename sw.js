@@ -74,5 +74,5 @@ async function cacheFirst(request) {
 
 self.addEventListener('fetch', event => {
   // console.log('[Service Worker] Fetch event: ' + event.request.url);
-  event.respondWith(networkFirst(event.request));
+  event.respondWith(cacheFirst(event.request));
 });
