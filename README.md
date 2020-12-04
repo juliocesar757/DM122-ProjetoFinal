@@ -1,3 +1,4 @@
-# PWA - Todo List App
+# UFO - Useful Financial Organizer 
 
-An example of PWA with Vanilla JS and IndexedDB
+Pós-graduação em Desenvolvimento de Aplicações para Dispositivos Móveis e Cloud Computing
+Projeto Avaliativo - DM122 - Progressive Web App
