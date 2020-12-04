@@ -4,7 +4,7 @@ const assetsToCache = [
   'https://fonts.gstatic.com/s/materialicons/v55/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2',
   'https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2',
   'https://cdn.jsdelivr.net/npm/dexie@3.0.3/dist/dexie.mjs',
-  'http://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
+  'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
   'https://fonts.googleapis.com/icon?family=Material+Icons',
   './assets/icons/icon-48x48.png',
   './assets/icons/icon-96x96.png',
